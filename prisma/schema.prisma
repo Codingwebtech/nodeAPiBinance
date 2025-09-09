@@ -1,0 +1,67 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id         Int      @id @default(autoincrement())
+  email      String   @unique
+  name       String?
+  mobile     String?
+  password   String
+  referralId String?
+  otp        String
+  status     String
+  active     String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+model Otp {
+  id        Int      @id @default(autoincrement())
+  user_id   String?
+  email     String
+  otp       String
+  status    String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Referral {
+  id        Int      @id @default(autoincrement())
+  user_id   String?
+  email     String   @unique
+  referral  String
+  status    String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Coins {
+  id               Int      @id @default(autoincrement())
+  coin             String
+  exng_type        String?
+  symbol           String?
+  coinpair         String
+  status           String?
+  active           String?
+  target           String?
+  targetsybl       String?
+  base             String?
+  basesybl         String?
+  min_quantity     String?
+  max_quantity     String?
+  min_price        String?
+  max_price        String?
+  base_precision   String?
+  target_precision String?
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @default(now())
+}
